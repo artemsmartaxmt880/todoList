@@ -2,10 +2,12 @@ const form = document.getElementById('form');
 const taskInput = document.getElementById('taskInput');
 const tasksList = document.getElementById('tasksList');
 const emptyList = document.getElementById('emptyList');
+const btnRemoveAll = document.querySelector('.btn__remove');
 
 form.addEventListener('submit', addTask);
 tasksList.addEventListener('click', deleteTask);
 tasksList.addEventListener('click', doneTask);
+btnRemoveAll.addEventListener('click', removeAllTask);
 // ! массив, каторый содержит в себе все задачи
 let tasks = [];
 // ! возвращаем из LocalStorage данные 
@@ -153,3 +155,17 @@ function renderTask(task) {
     </li>`;
     tasksList.insertAdjacentHTML('beforeend', taskHTML);
 }
+function removeAllTask(event) {
+    // нахожу все <li>, задаю каждому task и удаляю(просто remove, как раньше, не сработало)
+    tasksList.querySelectorAll('.tasksList__item').forEach(task => task.remove());
+    // ! удаляю все из массива
+    if (event.target.dataset.action === 'removeAll') {
+        tasks = tasks.findIndex(function (task) {
+            return task !== tasks;
+        });
+    }
+    // присваиваю [], чтоб не было 0
+    tasks = [];
+    if (emptyList!==null) checkEmptyList();
+}
+    console.log(tasks)
