@@ -11,23 +11,25 @@
 <body>
 	<div class="wripper">
 		<div class="container">
-			<div class="tasksList__box">
-				<ul class="tasksList" id="tasksList">
-					<!-- <li class="tasksList__emptyItem" id="emptyList">
-						<div class="tasksList__image">
-							<img src="img/69.webp" alt="empty">
+			<div class="tasks">
+				<div class="taskInput__box">
+					<form class="taskInput__form" id="form">
+						<div class="taskInput__item">
+							<input id="taskInput" type="text">
 						</div>
-						<div class="tasksList__text">empty list</div>
-					</li> -->
-				</ul>
-			</div>
-			<div class="taskInput__box">
-				<form class="taskInput__form" id="form">
-					<div class="taskInput__item">
-						<input id="taskInput" type="text">
-					</div>
-					<button class="btn__submit" type="submit">add item</button>
-				</form>
+						<button class="btn__submit" type="submit">add item</button>
+					</form>
+				</div>
+				<div class="tasks__box">
+					<ul class="tasksList" id="tasksList">
+						<!-- <li class="tasksList__emptyItem" id="emptyList">
+							<div class="tasksList__image">
+								<img src="img/69.webp" alt="empty">
+							</div>
+							<div class="tasksList__text">empty list</div>
+						</li> -->
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>

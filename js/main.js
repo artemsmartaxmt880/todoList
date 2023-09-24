@@ -114,7 +114,7 @@ function doneTask(event) {
     saveToLocalStorage()
     // ?===================================================================================
     // теперь ищем внутри <li> <span>. Можно и по классу, хоть как
-    const taskTitle = parentNode.querySelector('span');
+    const taskTitle = parentNode.querySelector('.tasksList__text');
     taskTitle.classList.toggle('done');
 };
 function checkEmptyList() {
