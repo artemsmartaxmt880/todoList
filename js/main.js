@@ -120,9 +120,11 @@ function doneTask(event) {
 function checkEmptyList() {
     if (tasks.length === 0) {
         const emptyListHTML = `
-        <li id="emptyList">
-        <span>&#9997;</span>
-        <div>empty list</div>
+        <li class="tasksList__emptyItem" id="emptyList">
+        <div class="tasksList__image">
+            <img src="img/69.webp" alt="empty">
+        </div>
+        <div class="tasksList__text">empty list</div>
     </li>
         `;
         tasksList.insertAdjacentHTML('afterbegin', emptyListHTML);
@@ -140,14 +142,14 @@ function saveToLocalStorage() {
     localStorage.setItem('tasks', JSON.stringify(tasks))
 }
 function renderTask(task) {
-    const cssClass = task.done ? "" : "done";
+    const cssClass = task.done ? "tasksList__text" : "done";
     const taskHTML = `
-    <li id="${task.id}">
-    <span class="${cssClass}">${task.text}</span>
-    <div>
-        <button data-action="done">&#10003;</button>
-        <button data-action="delete">&#10008;</button>
+    <li class="tasksList__item" id="${task.id}">
+    <div class="${cssClass}">${task.text}</div>
+    <div class="btn__box">
+        <button class="btn__done" data-action="done">&#10003;</button>
+        <button class="btn__delete" data-action="delete">&#10008;</button>
     </div>
-</li>`;
+    </li>`;
     tasksList.insertAdjacentHTML('beforeend', taskHTML);
 }
