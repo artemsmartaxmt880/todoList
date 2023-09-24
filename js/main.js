@@ -3,7 +3,6 @@ const taskInput = document.getElementById('taskInput');
 const tasksList = document.getElementById('tasksList');
 const emptyList = document.getElementById('emptyList');
 const btnRemoveAll = document.querySelector('.btn__remove');
-
 form.addEventListener('submit', addTask);
 tasksList.addEventListener('click', deleteTask);
 tasksList.addEventListener('click', doneTask);
@@ -19,8 +18,6 @@ tasks.forEach(function (task) {
     renderTask(task);
 });
 checkEmptyList();
-
-// это function dicliration можно вызывать до ее обьявления
 function addTask(event) {
     // после submit страница перезагружается(стандартное поведение формы), поэтому
     // обьявляем параметр (event) и в собках отменяем ему это поведение
@@ -37,9 +34,7 @@ function addTask(event) {
     // ! добавляем задачу в массив со всеми задачами
     // ! push добавляет в конец массива
     tasks.push(newTask);
-    // ?===================================================================================
     saveToLocalStorage()
-    // ?===================================================================================
     // ! меняем task на newTask
     renderTask(newTask);
     // ощищаем поле ввода поле надатия кнопки и сразу же возвращаем на него фокус
@@ -79,16 +74,16 @@ function deleteTask(event) {
     tasks = tasks.filter(function (task) {
         return task.id !== id;
     });
-    // ?===================================================================================
+    // ?===================
     saveToLocalStorage()
-    // ?===================================================================================
+    // ?===================
     // ну и delete 
     parentNode.remove();
-    // ?    // показываем пустой лист и картинку, если в листе 1 элемент <li>
-    // ?    // пишем условие
-    // ?    if (tasksList.children.length === 1) {
-    // ?        emptyList.classList.remove('hidden');
-    // ?    }
+    // ?показываем пустой лист и картинку, если в листе 1 элемент <li>
+    // ?пишем условие
+    // ?if (tasksList.children.length === 1) {
+    // ?    emptyList.classList.remove('hidden');
+    // ?}
     checkEmptyList();
 };
 function doneTask(event) {
@@ -112,9 +107,9 @@ function doneTask(event) {
         return task.id === id;
     });
     task.done = !task.done;
-    // ?===================================================================================
+    // ?===================
     saveToLocalStorage()
-    // ?===================================================================================
+    // ?===================
     // теперь ищем внутри <li> <span>. Можно и по классу, хоть как
     const taskTitle = parentNode.querySelector('.tasksList__text');
     taskTitle.classList.toggle('done');
@@ -166,6 +161,10 @@ function removeAllTask(event) {
     }
     // присваиваю [], чтоб не было 0
     tasks = [];
-    if (emptyList!==null) checkEmptyList();
+    // *хз как сработало, взял из deleteTask
+    if (tasksList.children.length < 1) {
+        checkEmptyList();
+    }
 }
-    console.log(tasks)
+
+console.log(tasks)
