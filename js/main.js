@@ -92,7 +92,8 @@ function doneTask(event) {
     // пишем условие через data-action 
     // Если мы нажали не по кнопке done, возващаем значение(ну и прекращаем функцию),
     // если по кнопке, то она работает дальше
-    if (event.target.dataset.action !== 'done') return;
+    // *if (event.target.dataset.action !== 'done') return;
+    if (event.target.dataset.action === 'delete') return;
     // метод closest поднимается вверх от элемента и проверяет каждого из родителей
     // мы ищем <li> где будит <span>, в которм хотим изменить текст.
     const parentNode = event.target.closest('li');
@@ -119,7 +120,7 @@ function checkEmptyList() {
         const emptyListHTML = `
         <li class="tasksList__emptyItem" id="emptyList">
         <div class="tasksList__image">
-            <img src="img/69.webp" alt="empty">
+            <img src="img/grunge.png" alt="empty">
         </div>
         <div class="tasksList__text">empty list</div>
     </li>
@@ -140,13 +141,12 @@ function saveToLocalStorage() {
 }
 function renderTask(task) {
     const cssClass = task.done ? "tasksList__text" : "done";
+    // ? Эту кнопку я убрал
+    // ?<button class="btn__done" data-action="done">&#10003;</button>
     const taskHTML = `
     <li class="tasksList__item" id="${task.id}">
     <div class="${cssClass}">${task.text}</div>
-    <div class="btn__box">
-        <button class="btn__done" data-action="done">&#10003;</button>
         <button class="btn__delete" data-action="delete">&#10008;</button>
-    </div>
     </li>`;
     tasksList.insertAdjacentHTML('beforeend', taskHTML);
 }
@@ -161,10 +161,12 @@ function removeAllTask(event) {
     }
     // присваиваю [], чтоб не было 0
     tasks = [];
+    // ?===================
+    saveToLocalStorage()
+    // ?===================
     // *хз как сработало, взял из deleteTask
     if (tasksList.children.length < 1) {
         checkEmptyList();
     }
 }
-
 console.log(tasks)
