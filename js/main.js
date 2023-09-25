@@ -24,6 +24,8 @@ function addTask(event) {
     event.preventDefault();
     // достаем текст из Input, value - это значение Input
     const taskText = taskInput.value;
+    // запрещаю вводить пустое поле
+    if (taskText.length == 0) return;
     // ! создаем объект описывающий эту задачу
     const newTask = {
         // ! текущая дата в ms 
