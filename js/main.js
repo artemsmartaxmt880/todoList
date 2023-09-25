@@ -94,6 +94,8 @@ function doneTask(event) {
     // если по кнопке, то она работает дальше
     // *if (event.target.dataset.action !== 'done') return;
     if (event.target.dataset.action === 'delete') return;
+    // ! поставил, чтоб не выдавало ошибку при нажании на пустую картинку
+    if (tasksList.children.length === 1) return;
     // метод closest поднимается вверх от элемента и проверяет каждого из родителей
     // мы ищем <li> где будит <span>, в которм хотим изменить текст.
     const parentNode = event.target.closest('li');
@@ -107,6 +109,7 @@ function doneTask(event) {
         // ! если не найдет, то вернет -1
         return task.id === id;
     });
+    if(task.done === undefined) return;
     task.done = !task.done;
     // ?===================
     saveToLocalStorage()
@@ -120,9 +123,8 @@ function checkEmptyList() {
         const emptyListHTML = `
         <li class="tasksList__emptyItem" id="emptyList">
         <div class="tasksList__image">
-            <img src="img/grunge.png" alt="empty">
+            <img id="emptyImage" src="img/grunge.png" alt="empty">
         </div>
-        <div class="tasksList__text">empty list</div>
     </li>
         `;
         tasksList.insertAdjacentHTML('afterbegin', emptyListHTML);
@@ -169,4 +171,4 @@ function removeAllTask(event) {
         checkEmptyList();
     }
 }
-console.log(tasks)
+// console.log(tasks)
