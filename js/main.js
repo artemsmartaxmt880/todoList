@@ -111,14 +111,24 @@ function doneTask(event) {
         // ! если не найдет, то вернет -1
         return task.id === id;
     });
-    if(task.done === undefined) return;
+    if (task.done === undefined) return;
     task.done = !task.done;
-    // ?===================
-    saveToLocalStorage()
-    // ?===================
+    const done = tasks.filter(task => task.done === false);
+    tasks.sort((a, b) => {
+        if (a.done > b.done) {
+            return -1;
+        } else {
+            return 1;
+        };
+    });
     // теперь ищем внутри <li> <span>. Можно и по классу, хоть как
     const taskTitle = parentNode.querySelector('.tasksList__text');
     taskTitle.classList.toggle('done');
+    parentNode.remove();
+    renderTask(task);
+    // ?===================
+    saveToLocalStorage()
+    // ?===================
 };
 function checkEmptyList() {
     if (tasks.length === 0) {
@@ -144,7 +154,7 @@ function saveToLocalStorage() {
     localStorage.setItem('tasks', JSON.stringify(tasks))
 }
 function renderTask(task) {
-    const cssClass = task.done ? "tasksList__text" : "done";
+    const cssClass = task.done ? "tasksList__text" : "tasksList__text done";
     // ? Эту кнопку я убрал
     // ?<button class="btn__done" data-action="done">&#10003;</button>
     const taskHTML = `
