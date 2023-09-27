@@ -54,12 +54,7 @@ function addTask(event) {
 function deleteTask(event) {
     // если я захочу поставить img на button, на в css надо указать (pointer-events: none;) ей
     // =====================================================
-    // пишем условие через data-action 
-    // Если мы нажали не по кнопке delete, возващаем значение(ну и прекращаем функцию), если по кнопке,
-    // то она работает дальше
     if (event.target.dataset.action !== 'delete') return;
-    // метод closest поднимается вверх от элемента и проверяет каждого из родителей
-    // мы ищем <li>, каторый и хотим удалить. Можно и по классу, хоть как
     const parentNode = event.target.closest('li');
     // ! удаляем задачу из данных
     // ! определяем id задачи
@@ -78,10 +73,7 @@ function deleteTask(event) {
     tasks = tasks.filter(function (task) {
         return task.id !== id;
     });
-    // ?===================
     saveToLocalStorage()
-    // ?===================
-    // ну и delete 
     parentNode.remove();
     // ?показываем пустой лист и картинку, если в листе 1 элемент <li>
     // ?пишем условие
@@ -92,16 +84,10 @@ function deleteTask(event) {
 };
 function doneTask(event) {
     // если я захочу поставить img на button, на в css надо указать (pointer-events: none;) ей
-    // =====================================================
-    // пишем условие через data-action 
-    // Если мы нажали не по кнопке done, возващаем значение(ну и прекращаем функцию),
-    // если по кнопке, то она работает дальше
     // *if (event.target.dataset.action !== 'done') return;
     if (event.target.dataset.action === 'delete') return;
     // ! поставил, чтоб не выдавало ошибку при нажании на пустую картинку
     if (tasksList.children.length === 1) return;
-    // метод closest поднимается вверх от элемента и проверяет каждого из родителей
-    // мы ищем <li> где будит <span>, в которм хотим изменить текст.
     const parentNode = event.target.closest('li');
     if (parentNode === null) return;
     const id = Number(parentNode.id);   
@@ -125,14 +111,11 @@ function doneTask(event) {
             return 1;
         };
     });
-    // теперь ищем внутри <li> <span>. Можно и по классу, хоть как
     const taskTitle = parentNode.querySelector('.tasksList__text');
     taskTitle.classList.toggle('done');
     parentNode.remove();
     renderTask(task);
-    // ?===================
     saveToLocalStorage()
-    // ?===================
 };
 function removeDoneTask(event) {
     // ! удаляю из массива done 
