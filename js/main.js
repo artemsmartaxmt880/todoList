@@ -3,10 +3,12 @@ const taskInput = document.getElementById('taskInput');
 const tasksList = document.getElementById('tasksList');
 const emptyList = document.getElementById('emptyList');
 const btnRemoveAll = document.querySelector('.btn__remove');
+const btnRemoveDone = document.querySelector('.btn__removeDone')
 form.addEventListener('submit', addTask);
 tasksList.addEventListener('click', deleteTask);
 tasksList.addEventListener('click', doneTask);
 btnRemoveAll.addEventListener('click', removeAllTask);
+btnRemoveDone.addEventListener('click', removeDoneTask);
 // ! массив, каторый содержит в себе все задачи
 let tasks = [];
 // ! возвращаем из LocalStorage данные 
@@ -182,5 +184,16 @@ function removeAllTask(event) {
     if (tasksList.children.length < 1) {
         checkEmptyList();
     }
+}
+function removeDoneTask(event) {
+    // ! удаляю из массива done 
+    const done = tasks.filter(task => task.done === true)
+    tasks.slice(done);
+    tasks = done;
+    let doneList = tasksList.querySelectorAll('.done');
+    for (let i = 0, length = doneList.length; i < length; i++) {
+        doneList[i].closest('li').remove();
+    }
+    saveToLocalStorage()
 }
 // console.log(tasks)
