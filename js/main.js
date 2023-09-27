@@ -83,6 +83,8 @@ function deleteTask(event) {
     checkEmptyList();
 };
 function doneTask(event) {
+    const emptyImage = document.querySelector('.tasksList__image');
+    if (event.target.emptyImage) return;
     // если я захочу поставить img на button, на в css надо указать (pointer-events: none;) ей
     // *if (event.target.dataset.action !== 'done') return;
     if (event.target.dataset.action === 'delete') return;
@@ -100,8 +102,6 @@ function doneTask(event) {
         // ! если не найдет, то вернет -1
         return task.id === id;
     });
-    const emptyImage = document.querySelector('.tasksList__image');
-    if (event.target.emptyImage) return;
     task.done = !task.done;
     const done = tasks.filter(task => task.done === false);
     tasks.sort((a, b) => {
@@ -123,7 +123,7 @@ function removeDoneTask(event) {
     tasks.slice(done);
     tasks = done;
     let doneList = tasksList.querySelectorAll('.done');
-    for (let i = 0, length = doneList.length; i < length; i++) {
+    for (let i = 0; i < doneList.length; i++) {
         doneList[i].closest('li').remove();
     }
     saveToLocalStorage()
