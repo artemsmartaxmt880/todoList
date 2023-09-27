@@ -103,7 +103,8 @@ function doneTask(event) {
     // метод closest поднимается вверх от элемента и проверяет каждого из родителей
     // мы ищем <li> где будит <span>, в которм хотим изменить текст.
     const parentNode = event.target.closest('li');
-    const id = Number(parentNode.id);
+    if (parentNode === null) return;
+    const id = Number(parentNode.id);   
     // ! находим id задачи в массиве
     // ! function(...) переменная, по которой обращаемся к каждому элементу массива 
     // ! find возвращает ссыклу на элемент, тоесть мы можем работать с task
@@ -113,7 +114,8 @@ function doneTask(event) {
         // ! если не найдет, то вернет -1
         return task.id === id;
     });
-    if (task.done === undefined) return;
+    const emptyImage = document.querySelector('.tasksList__image');
+    if (event.target.emptyImage) return;
     task.done = !task.done;
     const done = tasks.filter(task => task.done === false);
     tasks.sort((a, b) => {
@@ -132,6 +134,34 @@ function doneTask(event) {
     saveToLocalStorage()
     // ?===================
 };
+function removeDoneTask(event) {
+    // ! удаляю из массива done 
+    const done = tasks.filter(task => task.done === true)
+    tasks.slice(done);
+    tasks = done;
+    let doneList = tasksList.querySelectorAll('.done');
+    for (let i = 0, length = doneList.length; i < length; i++) {
+        doneList[i].closest('li').remove();
+    }
+    saveToLocalStorage()
+}
+function removeAllTask(event) {
+    // нахожу все <li>, задаю каждому task и удаляю(просто remove, как раньше, не сработало)
+    tasksList.querySelectorAll('.tasksList__item').forEach(task => task.remove());
+    // ! удаляю все из массива
+    if (event.target.dataset.action === 'removeAll') {
+        tasks = tasks.findIndex(function (task) {
+            return task !== tasks;
+        });
+    }
+    // присваиваю [], чтоб не было 0
+    tasks = [];
+    saveToLocalStorage()
+    // *хз как сработало, взял из deleteTask
+    if (tasksList.children.length < 1) {
+        checkEmptyList();
+    }
+}
 function checkEmptyList() {
     if (tasks.length === 0) {
         const emptyListHTML = `
@@ -165,35 +195,5 @@ function renderTask(task) {
         <button class="btn__delete" data-action="delete">&#10008;</button>
     </li>`;
     tasksList.insertAdjacentHTML('beforeend', taskHTML);
-}
-function removeAllTask(event) {
-    // нахожу все <li>, задаю каждому task и удаляю(просто remove, как раньше, не сработало)
-    tasksList.querySelectorAll('.tasksList__item').forEach(task => task.remove());
-    // ! удаляю все из массива
-    if (event.target.dataset.action === 'removeAll') {
-        tasks = tasks.findIndex(function (task) {
-            return task !== tasks;
-        });
-    }
-    // присваиваю [], чтоб не было 0
-    tasks = [];
-    // ?===================
-    saveToLocalStorage()
-    // ?===================
-    // *хз как сработало, взял из deleteTask
-    if (tasksList.children.length < 1) {
-        checkEmptyList();
-    }
-}
-function removeDoneTask(event) {
-    // ! удаляю из массива done 
-    const done = tasks.filter(task => task.done === true)
-    tasks.slice(done);
-    tasks = done;
-    let doneList = tasksList.querySelectorAll('.done');
-    for (let i = 0, length = doneList.length; i < length; i++) {
-        doneList[i].closest('li').remove();
-    }
-    saveToLocalStorage()
 }
 // console.log(tasks)
