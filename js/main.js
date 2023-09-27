@@ -144,6 +144,7 @@ function removeDoneTask(event) {
         doneList[i].closest('li').remove();
     }
     saveToLocalStorage()
+    checkEmptyList();
 }
 function removeAllTask(event) {
     // нахожу все <li>, задаю каждому task и удаляю(просто remove, как раньше, не сработало)
