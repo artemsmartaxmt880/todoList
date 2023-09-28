@@ -132,12 +132,6 @@ function removeDoneTask(event) {
 function removeAllTask(event) {
     // нахожу все <li>, задаю каждому task и удаляю(просто remove, как раньше, не сработало)
     tasksList.querySelectorAll('.tasksList__item').forEach(task => task.remove());
-    // ! удаляю все из массива
-    if (event.target.dataset.action === 'removeAll') {
-        tasks = tasks.findIndex(function (task) {
-            return task !== tasks;
-        });
-    }
     // присваиваю [], чтоб не было 0
     tasks = [];
     saveToLocalStorage()
