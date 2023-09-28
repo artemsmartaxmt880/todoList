@@ -111,6 +111,15 @@ function doneTask(event) {
             return 1;
         };
     });
+    const inProg = tasks.filter(task => task.done === true);
+    tasks.sort((a, b) => {
+        if (a.done > b.done) {
+            return -1;
+        } else {
+            return 1;
+        };
+    });
+    console.log(inProg)
     const taskTitle = parentNode.querySelector('.tasksList__text');
     taskTitle.classList.toggle('done');
     parentNode.remove();
