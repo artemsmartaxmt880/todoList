@@ -92,7 +92,7 @@ function doneTask(event) {
     if (tasksList.children.length === 1) return;
     const parentNode = event.target.closest('li');
     if (parentNode === null) return;
-    const id = Number(parentNode.id);   
+    const id = +parentNode.id;   
     // ! находим id задачи в массиве
     // ! function(...) переменная, по которой обращаемся к каждому элементу массива 
     // ! find возвращает ссыклу на элемент, тоесть мы можем работать с task
@@ -127,6 +127,7 @@ function removeDoneTask(event) {
         doneList[i].closest('li').remove();
     }
     saveToLocalStorage()
+        // *чтоб не вылезала еще 1 пустая иконка
     if (tasksList.children.length < 1) {
         checkEmptyList();
     }
