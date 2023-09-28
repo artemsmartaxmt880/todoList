@@ -127,7 +127,9 @@ function removeDoneTask(event) {
         doneList[i].closest('li').remove();
     }
     saveToLocalStorage()
-    checkEmptyList();
+    if (tasksList.children.length < 1) {
+        checkEmptyList();
+    }
 }
 function removeAllTask(event) {
     // нахожу все <li>, задаю каждому task и удаляю(просто remove, как раньше, не сработало)
@@ -135,7 +137,7 @@ function removeAllTask(event) {
     // присваиваю [], чтоб не было 0
     tasks = [];
     saveToLocalStorage()
-    // *хз как сработало, взял из deleteTask
+    // *чтоб не вылезала еще 1 пустая иконка
     if (tasksList.children.length < 1) {
         checkEmptyList();
     }
