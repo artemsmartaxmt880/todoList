@@ -186,4 +186,5 @@ function renderTask(task) {
     </li>`;
     tasksList.insertAdjacentHTML('beforeend', taskHTML);
 }
+
 // console.log(tasks)
