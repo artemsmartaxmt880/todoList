@@ -119,7 +119,6 @@ function doneTask(event) {
             return 1;
         };
     });
-    console.log(inProg)
     const taskTitle = parentNode.querySelector('.tasksList__text');
     taskTitle.classList.toggle('done');
     parentNode.remove();
