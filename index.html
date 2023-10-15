@@ -16,17 +16,26 @@
 					<form class="taskInput__form" id="form">
 						<div class="taskInput__item">
 							<label for="taskInput"></label>
-							<input id="taskInput" placeholder="Add..." type="text" tabindex="1">
+							<input class="taskInput" id="taskInput" placeholder="Add..." type="text" tabindex="1">
 						</div>
 						<div class="btn__box"">
 							<button class=" btn__submit btn" type="submit">Add Task</button>
-							<button class="btn__removeDone btn" type="button" data-action="removeDone">Remove Done</button>
-							<button class="btn__remove btn" type="button" data-action="removeAll">Remove All</button>
+							<button class="btn__removeDone btn" type="button">Delete Done</button>
+							<button class="btn__remove btn" type="button">Delete All</button>
 						</div>
 					</form>
 				</div>
 				<div class="tasks__box">
-					<ul class="tasksList" id="tasksList"></ul>
+					<ul class="tasksList" id="tasksList">
+						<li class="tasksList__emptyItem" id="emptyList">
+							<div class="tasksList__image">
+								<img id="emptyImage" src="img/grunge.png" alt="empty">
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="tasks__boxDone hidden">
+					<ul class="tasksDoneList" id="tasksDoneList"></ul>
 				</div>
 			</div>
 		</div>
